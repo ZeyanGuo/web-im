@@ -1,0 +1,22 @@
+{
+  "name": "static",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "server-im test",
+    "build": "server-im build",
+    "start": "server-im start"
+  },
+  "keywords": [],
+  "author": "guozeyan",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "server-im": "^0.0.2"
+  }
+}
