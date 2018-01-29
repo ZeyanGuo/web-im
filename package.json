@@ -6,17 +6,21 @@
   "scripts": {
     "test": "server-im test",
     "build": "server-im build",
-    "start": "server-im start"
+    "start": "server-im start",
+    "ejs": "server-im ejs"
   },
   "keywords": [],
   "author": "guozeyan",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "webpack": "^3.8.1"
+    "babel-loader": "^7.1.2"
   },
   "dependencies": {
-    "server-im": "^0.0.2"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "server-im": "^0.0.4"
   }
 }
