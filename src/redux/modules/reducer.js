@@ -1,8 +1,8 @@
 // the main reducer function
-import {comebineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import loginReducer from './login';
  
-export default comebineReducers({
+export default combineReducers({
 	loginReducer
 	//more other reducers
 });

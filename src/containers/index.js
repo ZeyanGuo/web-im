@@ -1,2 +1,5 @@
-export login from './login';
-export main from './main';
+import Login from './login';
+import Main from './main';
+
+export const login = Login;
+export const main = Main;

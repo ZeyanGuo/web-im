@@ -1,14 +1,16 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from './redux';
 import routes from './routes.js';
 
 const dest = document.getElementById('root');
+console.log(dest);
+let Page = routes(store.getState().loginReducer.loginStatu);
 
-Page = routes(store.getStore().loginStatu);
+console.log(store.getState().loginReducer.loginStatu);
 
-ReactDom.render(
+ReactDOM.render(
 	<Provider store={store}>
 		<Page />
 	</Provider>,

@@ -2,10 +2,8 @@
 import {LOGIN,LOGOUT} from './types';
 
 const initState = {
-	login:{
-		userInfo:{},
-		loginStatu:'LOGOUT'
-	}
+	userInfo:{},
+	loginStatu:'LOGOUT'
 }
 
 const loginReducer = (status=initState,action)=>{
@@ -27,6 +25,9 @@ const loginReducer = (status=initState,action)=>{
 				},
 				loginStatu:LOGOUT
 			}
+		} break;
+		default:{
+			return status;
 		}
 	}
 }

@@ -1,16 +1,17 @@
 //this is the router, it control the website to show.
-import containers from './containers';
-import types from './redux/modules/types';
+import * as containers from './containers';
+import * as types from './redux/modules/types';
 export default (status) => {
 	switch(status){
 		case types.LOGIN:{
 			return containers.main;
 		} break;
 		case types.LOGOUT:{
+			console.log(containers);
 			return containers.login;
-		}
-		default{
-			return containers.error;
+		} break;
+		default :{
+			return null;
 		}
 	}
 }
