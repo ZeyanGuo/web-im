@@ -7,7 +7,7 @@
     "test": "server-im test",
     "build": "server-im build",
     "start": "server-im start",
-    "ejs": "server-im ejs"
+    "dev": "server-im dev"
   },
   "keywords": [],
   "author": "guozeyan",

@@ -10,9 +10,15 @@ let Page = routes(store.getState().loginReducer.loginStatu);
 
 console.log(store.getState().loginReducer.loginStatu);
 
+	
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Page />
 	</Provider>,
 	dest
 );
+
+if (module.hot) {
+	module.hot.accept()
+}
