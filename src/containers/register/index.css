@@ -1,0 +1,16 @@
+.IM-register{
+	background: white;
+	width:370px;
+	height: 500px;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -185px;
+	margin-top: -250px;
+	border-radius: 5px;
+	box-shadow: 0 0 8px 1px #999;
+}
+.IM-register-logo{
+	margin-top: 40px;
+	margin-left: 25px;
+}

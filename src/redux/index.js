@@ -1,5 +1,13 @@
 //处理中间件和reducer，创建store
-import reducer from './modules/reducer';
-import {createStore} from 'redux';
+//middleware
+import thunk from 'redux-thunk';
 
-export default createStore(reducer);
+//others
+import { createStore,combineReducers,applyMiddleware } from 'redux';
+import loginReducer from './login/reducer';
+ 
+const reducer = combineReducers({
+	loginReducer
+	//more other reducers
+});
+export default createStore(reducer,applyMiddleware(thunk));

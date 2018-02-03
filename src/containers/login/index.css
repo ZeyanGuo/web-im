@@ -1,0 +1,39 @@
+.IM-login{
+	background: white;
+	width:370px;
+	height: 500px;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -185px;
+	margin-top: -250px;
+	border-radius: 5px;
+	box-shadow: 0 0 8px 1px #999;
+}
+.IM-login-logo{
+	margin-top: 40px;
+	margin-left: 85px;
+}
+.IM-login-area{
+	text-align: center;
+	margin-top: 5px;
+	position: relative;
+}
+.IM-login-input-label{
+	
+	color: gray;
+	font-size: 20px;
+	margin-top: 12px;
+}
+.IM-login-info-label{
+	color: gray;
+	font-size: 13px;
+	margin-top: 30px;
+
+}
+.IM-login-info-link{
+	color:gray;
+	font-size: 13px;
+	margin-right: 50px;
+	margin-top: 30px;
+}

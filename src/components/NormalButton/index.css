@@ -1,0 +1,8 @@
+.IM-normal-button:hover{
+	background: whitesmoke;
+	cursor: pointer;
+}
+.IM-normal-button:active{
+	outline: none;
+	border:1px solid #999;
+}
