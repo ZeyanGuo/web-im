@@ -46,7 +46,7 @@ class Login extends React.Component{
 					<br />
 					<label style = {{float:'left',marginLeft:'50px'}} className = "IM-login-info-label">{transLan('login','IMinfo')}</label>
 					<Link style = {{float:'right'}} className = "IM-login-info-link" to = "/register">{transLan('login','registe')}</Link>
-					<label style = {{float:'right'}} className = "IM-login-info-label">{transLan('login','useInfo')}</label>
+					<label style = {{float:'right'}} className = "IM-login-info-label">{transLan('login','registeInfo')}</label>
 					
 				</div>
 			</div>

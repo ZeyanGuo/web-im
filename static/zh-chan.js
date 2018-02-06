@@ -4,8 +4,19 @@ const lan = {
 		password:'密码：',
 		loginButton:'登 录',
 		IMinfo:'IM 网页版',
-		useInfo:'成为新用户:',
+		registeInfo:'成为新用户:',
 		registe:'注册',
+	},
+	registe:{
+		usrname:'用户名：',
+		password:'密码：',
+		checkPwd:'确认密码：',
+		registeButton:'注 册',
+		IMinfo:'欢迎注册 IM',
+		login:'登录',
+		loginInfo:'已有账号:',
+		phone:'手机号：',
+		email:'电子邮箱：',
 	}
 }
 

@@ -14,3 +14,34 @@
 	margin-top: 40px;
 	margin-left: 25px;
 }
+.IM-register-area{
+	text-align: center;
+	margin-top: 5px;
+	position: relative;
+}
+.IM-register-input-label{
+	color: gray;
+    font-size: 20px;
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
+    height: 31px;
+    margin-top: 14px;
+}
+.IM-register-info-label{
+	color: gray;
+	font-size: 13px;
+	margin-top: 30px;
+
+}
+.IM-register-info-link{
+	color:gray;
+	font-size: 13px;
+	margin-right: 50px;
+	margin-top: 30px;
+}
+.IM-register-info-area{
+	display:inline-block;
+
+}

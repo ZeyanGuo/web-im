@@ -1,23 +1,23 @@
 import React from 'react';
+import './index.css';
 
-const style = {
-	marginTop: '12px',
-    height: '30px',
-    width: '50%',
-    fontSize: '20px',
-    color: 'gray',
-    border: '0px',
-    borderBottom: '1px solid gray',
-    outline: 'none'
-}
+
 
 const InputBox = (props) => {
+	let className = 'inputBox-style';
+	props.className === 'register'? className += ' input-register':'';
+	// if(props.error){debugger; console.log(props.error)}
+	if(props.className === 'register'){
+		props.valueInfo.showError?className += ' error':'';
+		!props.valueInfo.error?className += ' correct':'';
+	}
 	return (
 		<input 
-			style = {style}
 			type = {props.type} 
-			onChange = {props.onChange} 
-			value = {props.value} />
+			onChange = {props.onChange}
+			onKeyDown = {props.onKeyDown} 
+			value = {props.className === 'register'?props.valueInfo.value:props.value}
+			className = {className} />
 	)
 }
 
