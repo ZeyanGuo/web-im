@@ -1,0 +1,54 @@
+@keyframes page-scale-in{
+	from{transform: scale(0,0);}
+	to{transform: scale(1,1);}
+}
+
+.prompt-dialog{
+	position: fixed;
+    width: 350px;
+    height: 150px;
+    top: calc(50% - 75px);
+    left: calc(50% - 175px);
+    border-radius:5px;
+    background: white;
+    box-shadow: 0 0 8px 1px #999;
+    text-align: center;
+    transition:transform;
+}
+.prompt-dialog-info{
+	font-size: 23px;
+	padding: 37px 30px 10px 30px;
+	color: grey;
+	margin: 0;
+
+}
+.prompt-dialog-btn{
+	padding: .3em 1.8em;
+    border: .05em solid rgba(0,0,0,.1);
+    background: #9ACD32 linear-gradient(hsla(0,0%,100%,.2),transparent);
+    border-radius: .2em;
+    box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
+    color: white;
+    text-shadow: 0 -0.05em 0.05em rgba(0,0,0,.5);
+    font-size: 100%;
+    line-height: 1.5em;
+}
+.prompt-dialog-btn:active{
+	outline: none;
+	box-shadow: none;
+}
+.prompt-dialog-close{
+	background: #F08080;
+    color: white;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 25px;
+    border-radius: 0 5px 0 5px;
+    text-align: center;
+    margin-right: -1px;
+    margin-top: -1px;
+    font-size: 14px;
+}

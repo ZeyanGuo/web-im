@@ -23,14 +23,32 @@ class AppRouter extends React.Component{
 		if(nextProps.location !== this.props.location)
 			this.props.history.push(nextProps.location);
 	}
+	componentDidMount(){
+		let checkUser = this.props.checkUser;
+		window.addEventListener('popstate',()=>{
+			
+			if(location.pathname === '/assert/login'){
+				checkUser({from:'main'},this.props.history);
+			}
+			if(location.pathname === '/assert/main'){
+				checkUser({from:'login'},this.props.history);
+			}
+		})
+	}
 	render(){
 		return (
 			<div>
 				<Route path = "/login" component = {Login} />
 				<Route path = "/main" component = {Main} />
-				<Route path = "/register" component = {Register} />
+				<Route history = {this.props.history} path = "/register" component = {Register} />
 			</div>
 		)
+	}
+}
+
+const mapDispatchToProps = (dispatch) =>{
+	return {
+		checkUser: (info,history) => dispatch(actions.checkUser(info,history))
 	}
 }
 
@@ -40,7 +58,7 @@ const mapStateToPropsRouter = (state) => {
 	}
 }
 
-AppRouter = connect(mapStateToPropsRouter)(AppRouter);
+AppRouter = connect(mapStateToPropsRouter,mapDispatchToProps)(AppRouter);
 
 
 
@@ -51,7 +69,6 @@ class App extends React.Component{
 		super(props);
 	}
 	componentWillMount(){
-		console.log(this.props);
 		this.props.checkUser();
 	}
 	render(){
@@ -63,10 +80,5 @@ class App extends React.Component{
 	}
 }
 
-const mapDispatchToProps = (dispatch) =>{
-	return {
-		checkUser: () => dispatch(actions.checkUser())
-	}
-}
 
 export default connect(null,mapDispatchToProps)(App);

@@ -1,22 +1,18 @@
 //initial login reducer
 import {types} from '../types';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 const initState = {
 	userInfo:{},
-	loginStatu:'LOGOUT',
 	location:'/'
 }
-const {LOGIN,LOGOUT,REDIRECTTOLOGIN} = types;
+const {LOGIN,LOGOUT,REDIRECTTOLOGIN,REDIRECTTOMAIN} = types;
 const loginReducer = (status=initState,action)=>{
 	switch(action.type){
 		case LOGIN:{
 			//do some login methods
 			return {
 				location:'/main',
-				userInfo:{
-
-				},
-				loginStatu:LOGIN
+				userInfo:action.userInfo
 			}
 		} break;
 		case LOGOUT:{
@@ -24,16 +20,19 @@ const loginReducer = (status=initState,action)=>{
 			return {
 				location:'/login',
 				userInfo:{
-
 				},
-				loginStatu:LOGOUT
 			}
 		} break;
 		case REDIRECTTOLOGIN:{
 			return {
 				location:'/login',
-				userInfo:action.userInfo,
-				loginStatu:action.loginStatu
+				userInfo:action.userInfo
+			}
+		}
+		case REDIRECTTOMAIN:{
+			return {
+				location:'/main',
+				userInfo:action.userInfo
 			}
 		}
 		default:{

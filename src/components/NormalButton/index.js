@@ -12,11 +12,15 @@ let style = {
     lineHeight: '25px',
     borderRadius: '5px',
     transition: 'background .3s ease-in',
+    width:'250px'
 }
 
 const NormalButton = (props) => {
 	return (
-		<button style={style} className = 'IM-normal-button' >{props.value}</button>
+		<button style={style} onClick = {props.onClick} className = 'IM-normal-button' >
+			<label style={{display:props.loading?'none':'block'}}>{props.value}</label>
+			<img src={require("../../../static/loading.png")} className = 'IM-normal-loading' style = {{display:props.loading?'block':'none'}}></img>
+		</button>
 	)
 }
 

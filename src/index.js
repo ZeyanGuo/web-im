@@ -13,6 +13,7 @@ ReactDOM.render(
 	dest
 );
 
+//模块热替换代码，生产环境禁止
 if (module.hot) {
 	module.hot.accept()
 }

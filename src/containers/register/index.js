@@ -4,7 +4,10 @@ import transLan from '../../../static/zh-chan';
 import InputBox from '../../components/inputBox';
 import {Link} from 'react-router-dom';
 import NormalButton from '../../components/NormalButton';
-
+import actions from '../../redux/actions';
+import PromptDialog from '../../components/promptDialog';
+import {connect} from 'react-redux';
+import utils from '../../utils';
 
 class Register extends React.Component{
 	constructor(props){
@@ -35,6 +38,12 @@ class Register extends React.Component{
 				error:true,
 				showError:false
 			},
+			promptDialog:{
+				text:'',
+				show:false,
+				onClick:function(){}
+			},
+			normalBtnLoading:false
 		};
 		this.usrChange = this.usrChange.bind(this);
 		this.pwdChange = this.pwdChange.bind(this);
@@ -43,6 +52,9 @@ class Register extends React.Component{
 		this.phoneChange = this.phoneChange.bind(this);
 		this.emailChange = this.emailChange.bind(this);
 		this.baseCheck = this.baseCheck.bind(this);
+		this.registeBtnClick = this.registeBtnClick.bind(this);
+		this.hideComponent = this.hideComponent.bind(this);
+		this.redirectToLogin = this.redirectToLogin.bind(this);
 	}
 	inputChange(prop,value,e,checkInfo){
 		e.preventDefault();
@@ -178,36 +190,164 @@ class Register extends React.Component{
 			})
 		}
 	}
+	hideComponent(e){	
+		this.setState({
+			promptDialog:{
+				show:false
+			}
+		})
+	}
+	redirectToLogin(){
+		this.props.history.push('/login');
+	}
+	registeBtnClick(){
+		if(this.state.username.error){
+			this.setState({
+				promptDialog:{
+					text:transLan('registe','error').username,
+					show:true,
+					onClick:function(){}
+				}
+			});
+			return;
+		}
+		if(this.state.password.error){
+			this.setState({
+				promptDialog:{
+					text:transLan('registe','error').password,
+					show:true,
+					onClick:function(){}
+				}
+			});
+			return;
+		}
+		if(this.state.chpwdword.error||this.state.password.value!==this.state.chpwdword.value){
+			this.setState({
+				promptDialog:{
+					text:transLan('registe','error').checkPwd,
+					show:true,
+					onClick:function(){}
+				}
+			});
+			return;
+		}
+		if(this.state.phone.error){
+			this.setState({
+				promptDialog:{
+					text:transLan('registe','error').phone,
+					show:true,
+					onClick:function(){}
+				}
+			});
+			return;
+		}
+		if(this.state.email.error){
+			this.setState({
+				promptDialog:{
+					text:transLan('registe','error').email,
+					show:true,
+					onClick:function(){}
+				}
+			});
+			return;
+		}
+		let state = this.state;
+		let data = {
+			username:state.username.value,
+			password:state.password.value,
+			phone:state.phone.value,
+			email:state.email.value
+		}
+
+		this.setState({
+			normalBtnLoading:true
+		});
+		//请求后台
+		utils.postFetch('/methods/registe.json',data)
+		.then((res)=>{
+			return res.json();
+		})
+		.then((data)=>{
+			if(data&&data.status === 'err'){//如果注册失败
+				if(data.result.owned){//用户名已存在
+					this.setState({
+						promptDialog:{
+							text:transLan('registe','error').usernameExist,
+							show:true,
+							onClick:function(){}
+						},
+						normalBtnLoading:false
+					});
+				}
+				else{//插入数据库失败
+					this.setState({
+						promptDialog:{
+							text:transLan('registe','error').registeError,
+							show:true,
+							onClick:function(){}
+						},
+						normalBtnLoading:false
+					});
+				}
+			}
+			else if(data&&data.status === 'ok'){//注册成功
+				this.setState({
+					promptDialog:{
+						text:transLan('registe','error').registeSuccess,
+						show:true,
+						onClick:this.redirectToLogin
+					},
+					normalBtnLoading:false
+				});
+			}
+			else{//其他情况
+				this.setState({
+					promptDialog:{
+						text:transLan('registe','error').networkError,
+						show:true,
+						onClick:function(){}
+					},
+					normalBtnLoading:false
+				});
+			}
+		})
+	}
 	render(){
 		let state = this.state;
+		let promptDialog = this.state.promptDialog;
 		return(
-			<div className = "IM-register">
-				<img className = "IM-register-logo" src = { require("../../../static/registe.png") }  />
-				<div className = "IM-register-area">
-					<div className = "IM-register-info-area" style = {{textAlign:'left'}}>
-						<label className = "IM-register-input-label">{transLan('registe','usrname')}</label>						
-						<label className = "IM-register-input-label">{transLan('registe','password')}</label>						
-						<label className = "IM-register-input-label">{transLan('registe','checkPwd')}</label>						
-						<label className = "IM-register-input-label">{transLan('registe','phone')}</label>
-						<label className = "IM-register-input-label">{transLan('registe','email')}</label>
+			<div>
+				<div className = "IM-register">
+					<img className = "IM-register-logo" src = { require("../../../static/registe.png") }  />
+					<div className = "IM-register-area">
+						<div className = "IM-register-info-area" style = {{textAlign:'left'}}>
+							<label className = "IM-register-input-label">{transLan('registe','usrname')}</label>						
+							<label className = "IM-register-input-label">{transLan('registe','password')}</label>						
+							<label className = "IM-register-input-label">{transLan('registe','checkPwd')}</label>						
+							<label className = "IM-register-input-label">{transLan('registe','phone')}</label>
+							<label className = "IM-register-input-label">{transLan('registe','email')}</label>
+						</div>
+						
+						<div className = "IM-register-info-area">
+							<InputBox className = "register" type = "text" onChange = {this.usrChange} valueInfo = {state.username} />						
+							<InputBox className = "register" type = "password" onChange = {this.pwdChange} valueInfo = {state.password} />						
+							<InputBox className = "register" type = "password" onChange = {this.chPwdChange} valueInfo = {state.chpwdword} />						
+							<InputBox className = "register" type = "text" onKeyDown = {this.phoneChange} valueInfo = {state.phone} />
+							<InputBox className = "register" type = "text" onChange = {this.emailChange} valueInfo = {state.email} />
+						</div>
+						<NormalButton onClick = {this.registeBtnClick} loading = {this.state.normalBtnLoading} value = {transLan('registe','registeButton')} />
+						<br />
+						<label style = {{float:'left',marginLeft:'50px'}} className = "IM-register-info-label">{transLan('registe','IMinfo')}</label>
+						<Link style = {{float:'right'}} className = "IM-register-info-link" to = "/login">{transLan('registe','login')}</Link>
+						<label style = {{float:'right'}} className = "IM-register-info-label">{transLan('registe','loginInfo')}</label>
 					</div>
-					
-					<div className = "IM-register-info-area">
-						<InputBox className = "register" type = "text" onChange = {this.usrChange} valueInfo = {state.username} />						
-						<InputBox className = "register" type = "password" onChange = {this.pwdChange} valueInfo = {state.password} />						
-						<InputBox className = "register" type = "password" onChange = {this.chPwdChange} valueInfo = {state.chpwdword} />						
-						<InputBox className = "register" type = "text" onKeyDown = {this.phoneChange} valueInfo = {state.phone} />
-						<InputBox className = "register" type = "text" onChange = {this.emailChange} valueInfo = {state.email} />
-					</div>
-					<NormalButton value = {transLan('registe','registeButton')} />
-					<br />
-					<label style = {{float:'left',marginLeft:'50px'}} className = "IM-register-info-label">{transLan('registe','IMinfo')}</label>
-					<Link style = {{float:'right'}} className = "IM-register-info-link" to = "/login">{transLan('registe','login')}</Link>
-					<label style = {{float:'right'}} className = "IM-register-info-label">{transLan('registe','loginInfo')}</label>
 				</div>
+				<PromptDialog hideComponent = {this.hideComponent} text = {promptDialog.text} show = {promptDialog.show} onClick = {promptDialog.onClick}></PromptDialog>
 			</div>
 		)
 	}
 }
+
+
 
 export default Register;
