@@ -1,0 +1,20 @@
+.IM-search-friend-list{
+    background: #393c43;
+    position: absolute;
+    z-index: 30;
+    border-radius: 3px;
+    max-height: 500px;
+    overflow: scroll;
+    top: 35px;
+    left: 1px;
+    width: 243px;
+}
+.IM-search-no-result{
+	width: 100%;
+	color: gray;
+	text-align: center;
+	margin:0;
+	font-size: 20px;
+	padding-top: 10px;
+    height: 42px;
+}

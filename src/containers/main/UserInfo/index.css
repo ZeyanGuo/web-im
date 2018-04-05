@@ -1,0 +1,12 @@
+.IM-main-user-info{
+	background:#2d3238;
+	width:280px;
+	height: 100%;
+	border-radius: 5px 0 0 5px;
+	display: inline-block;
+	vertical-align: top;
+	color: white;
+}
+.IM-chat-info-container{
+	height: 100%
+}

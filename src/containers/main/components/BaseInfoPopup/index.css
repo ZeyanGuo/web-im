@@ -1,0 +1,57 @@
+.IM-baseInfo-popup{
+	background: #eeeeee;
+	width: 400px;
+	height: 550px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -275px;
+	margin-left: -200px;
+	z-index: 20;
+	box-shadow: 0 0 8px 1px #999;
+	border-radius: 5px;
+	text-align: center;
+}
+.IM-baseInfo-portrait{
+	width: 220px;
+	height: 220px;
+	border-radius: 5px;
+	background:lightgray;
+	display: block;
+    margin: 70px auto 30px auto;
+    cursor: pointer;
+}
+.IM-baseInfo-name{
+	display: inline-block;
+    width: 20%;
+    text-align: center;
+    color: gray;
+    font-size: 20px;
+}
+.IM-baseInfo-name > p{
+	margin:0;
+	padding: 0;
+	margin-top: 12px;
+	text-align: right;
+	padding-right: 10px
+}
+.IM-baseInfo-input{
+	display: inline-block;
+    width: 50%;
+    padding-right: 6%;
+}
+.IM-baseInfo-input input{
+	background: #eee;
+	width: 100%;
+}
+.IM-baseInfo-gender-select{
+	height: 30px;
+    margin-top: 9px;
+}
+.IM-baseInfo-gender-select label{
+	font-size: 20px;
+    color: gray;
+}
+.IM-baseInfo-input .IM-baseInfo-gender-select input{
+	width:10%;
+}

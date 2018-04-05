@@ -1,0 +1,148 @@
+.IM-main-chat-window{
+	height: 100%;
+	width: 720px;
+	background: #eeeeee;
+	border-radius: 0 5px 5px 0;
+	display: inline-block;
+}
+.IM-main-chat-title{
+	margin: 0 19px;
+	border-bottom: 1px solid #d6d6d6;
+	padding:10px 0;
+	height: 30px;
+	text-align:center;
+    position: relative;
+}
+.IM-main-chat-title > span{
+    line-height: 30px;
+}
+.IM-main-chat-container{
+	height: calc(100% - 51px);
+    position: relative;
+}
+.IM-main-chat-logo{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -100px;
+}
+.IM-person-information{
+	height: 100%;
+    text-align: center;
+}
+.IM-person-headImg{
+	margin-top: 80px;
+    width: 150px;
+    height: 150px;
+    background: white;
+    border-radius: 5px;
+}
+.IM-person-gender{
+	width: 16px;
+    height: 16px;
+}
+.IM-person-name{
+	font-size: 30px;
+    display: inline-block;
+    margin: 10px;
+}
+.IM-person-baseInfo-title{
+	color: gray;
+	font-size: 14px;
+	display: inline-block;
+    text-align: right;
+    vertical-align: top;
+    line-height: 25px;
+    padding-right: 15px;
+}
+.IM-person-baseInfo{
+	display: inline-block;
+    text-align: left;
+    vertical-align: top;
+    line-height: 25px;
+    color: gray;
+	font-size: 14px;
+}
+.IM-person-information > button{
+	width: auto !important;
+	margin-top: 20px !important;
+	padding:0.3em 2.4em !important;
+}
+#delete{
+	background: #CD5555;
+    color: white !important;
+}
+.IM-chat-container{
+	height: 100%;
+}
+.IM-chat-window{
+	height: calc(100% - 181px);
+    overflow: scroll;
+
+}
+.IM-chat-window-message{
+	text-align: center;
+    color: gray;
+    margin-top: 20px;
+
+}
+.IM-chat-message{
+
+}
+.IM-additional-tools{
+	border-top: 1px solid #d6d6d6;
+    width: 682px;
+    margin: 0 auto;
+    height: 28px;
+}
+.IM-chat-message-area{
+	width: 100%;
+    height: 110px;
+}
+.IM-chat-message-send-area{
+	width: 94%;
+    margin: 0 auto;
+    display: block;
+    border: none;
+    background: #eee;
+    height: 100%;
+    outline: none;
+    font-size: 16px;
+    color: gray;
+    resize: none;
+}
+.IM-chat-message-send-btn > button{
+	font-size: 16px !important;
+    padding: .1em 1.7em !important;
+    width: auto !important;
+    float: right !important;
+    margin: 0 20px 0 0 !important;
+}
+.IM-chat-message-send-btn > span{
+    float: right;
+    color: gray;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.IM-additional-tools-style{
+    fill: gray;
+    width: 28px;
+    height: 28px;
+    padding-top: 2px;
+    
+}
+.IM-chat-window > p{
+    margin-top: 4px;
+    color: gray;
+    text-align: center;
+}
+.IM-chat-more-history{
+    cursor: pointer;
+}
+.IM-main-chat-person-info-more{
+    width: 12px;
+    height: 12px;
+    padding: 0 5px 0 5px;
+    transform: rotate(180deg);
+}

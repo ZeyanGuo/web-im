@@ -1,0 +1,79 @@
+@keyframes page-scale-in{
+	from{transform:scale(0,0);opacity: 0;}
+	to{transform:scale(1,1);opacity: 1;}
+}
+@keyframes page-scale-out{
+	from{transform:scale(1,1);opacity: 1;}
+	to{transform:scale(0,0);opacity: 0;}
+}
+.IM-main-popup{
+	position: absolute;
+	width: 220px;
+	height: 280px;
+	border-radius:5px ;
+	top: 200px;
+	left: 200px;
+	z-index: -1;
+	background: white;
+	box-shadow: 0 0 8px 1px #999;
+}
+.IM-popup-portrait{
+	margin: 0;
+	display: block;
+	overflow: hidden;
+	width: 220px;
+	height: 220px;
+	border-radius: 5px 5px 0 0;
+	background: lightgray;
+}
+.IM-popup-info-content{
+	padding-left: 20px;
+}
+.IM-popup-info-base{
+	margin-top: 16px;
+	margin-bottom: 16px;
+	font-size: 18px;
+}
+.IM-popup-gender{
+	width: 16px;
+    height: 16px;
+    position: relative;
+    top: -5px;
+    left: 5px;
+}
+.IM-popup-plus{
+	width: 35px;
+	height: 35px;
+	margin-right:20px;
+	margin-top: -5px; 
+	float: right;
+	cursor: pointer;
+}
+.L{
+	max-width: 90px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.IM-main-popup-btn{
+	width: 60px;
+    background: transparent;
+    /* color: white; */
+    border: 1px solid #d1d1d1;
+    font-size: 16px;
+    border-radius: .2em;
+    outline: none;
+    /* text-rendering: unset; */
+    white-space: nowrap;
+    color: #808080;
+    cursor: pointer;
+    float: right;
+    margin-top: -3px;
+    margin-right: 20px;
+}
+
+
+
+

@@ -1,0 +1,37 @@
+.IM-more-operation{
+	position: absolute;
+    z-index: 10;
+    background: white;
+    width: 200px;
+    border-radius: 5px;
+    color: black;
+    overflow: hidden;
+    right: 15px;
+    top: 70px;
+}
+.IM-more-operation ul {
+	margin: 0;
+    padding: 0;
+}
+.IM-more-operation li {
+	margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    height: 50px;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+}
+.IM-more-operation li:last-child{
+	border:none;
+}
+.IM-more-operation li:hover{
+	background: #f5f5f5;
+}
+.IM-more-operation-icon{
+    width: 30px;
+    height: 30px;
+    fill: gray;
+    vertical-align: middle;
+    margin: 10px 10px 10px 20px;
+}

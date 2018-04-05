@@ -1,0 +1,53 @@
+@keyframes rotate{
+	from{
+		transform: rotateZ(0);
+	}
+	to{
+		transform: rotateZ(360deg);
+	}
+}
+.IM-message-right-container{
+	text-align: right;
+    padding: 10px 20px;
+}
+.IM-message-right-text{	
+	position: relative;
+	margin: 0;
+    display: inline-block;
+    background: #9dea80;
+    color: black;
+    max-width: 300px;
+    vertical-align: top;
+    word-wrap: break-word;
+    line-height: 42px;
+    padding: 0 12px;
+    text-align: left;
+    margin:0 10px;
+    border-radius: 3px
+}
+.IM-message-right-error{
+	width: 20px;
+	height: 20px;
+	vertical-align: bottom;
+}
+.IM-message-right-loading{
+	width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    animation: rotate 1.5s linear infinite;
+}
+.IM-message-right-headImg{
+	width: 40px;
+    height: 40px;
+    vertical-align: top;
+}
+.IM-message-right-text::after{
+	content: ' ';
+    position: absolute;
+    border-top: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #9dea80;
+    top: 5px;
+    right: -16px;
+}

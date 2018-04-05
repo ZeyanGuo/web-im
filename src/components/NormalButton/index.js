@@ -17,7 +17,7 @@ let style = {
 
 const NormalButton = (props) => {
 	return (
-		<button style={style} onClick = {props.onClick} className = 'IM-normal-button' >
+		<button style={style} onClick = {props.onClick} className = 'IM-normal-button' id = {props.id?props.id:''} >
 			<label style={{display:props.loading?'none':'block'}}>{props.value}</label>
 			<img src={require("../../../static/loading.png")} className = 'IM-normal-loading' style = {{display:props.loading?'block':'none'}}></img>
 		</button>

@@ -1,0 +1,21 @@
+@keyframes page-scale-in{
+	from{transform: scale(0,0);}
+	to{transform: scale(1,1);}
+}
+@keyframes page-move-out{
+	from{opacity: 1; transform: translateY(0px); }
+	to{opacity: 0; transform: translateY(-100px);}
+}
+.IM-img-update{
+	transform: scale(0,0);
+	position: absolute;
+	z-index: 30;
+	top: 50%;
+	left: 50%;
+	width: 710px;
+	height: 540px;
+	margin-top: -270px;
+	margin-left: -355px;
+	border:none;
+}
+		

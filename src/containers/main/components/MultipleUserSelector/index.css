@@ -1,0 +1,42 @@
+.IM-group-chat-user{
+	border-bottom: 1px solid #f9f9f9;
+	padding: 10px;
+	cursor: pointer;
+}
+.IM-group-chat-user-check{
+	display: inline-block;
+	height: 40px;
+}
+.IM-group-chat-user-check > i{
+	display: inline-block;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #f2f2f2;
+	background: white;
+	margin: 10px;
+	background-size: cover;
+}
+.IM-group-chat-user-avatar{
+	vertical-align: top;
+	display: inline-block;
+}
+.IM-group-chat-user-avatar > img{
+	width: 40px;
+	height: 40px;
+	background: #dfdfdf;
+	border-radius: 3px;
+}
+.IM-group-chat-user-name{
+	vertical-align: top;
+	display: inline-block;
+}
+.IM-group-chat-user-name > span{
+	display: inline-block;
+	white-space: nowrap;
+	padding-left: 10px;
+	width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #444
+}

@@ -253,7 +253,7 @@ class Register extends React.Component{
 		}
 		let state = this.state;
 		let data = {
-			username:state.username.value,
+			account:state.username.value,
 			password:state.password.value,
 			phone:state.phone.value,
 			email:state.email.value
@@ -328,7 +328,7 @@ class Register extends React.Component{
 							<label className = "IM-register-input-label">{transLan('registe','email')}</label>
 						</div>
 						
-						<div className = "IM-register-info-area">
+						<div className = "IM-register-info-area" style = {{width:'50%'}}>
 							<InputBox className = "register" type = "text" onChange = {this.usrChange} valueInfo = {state.username} />						
 							<InputBox className = "register" type = "password" onChange = {this.pwdChange} valueInfo = {state.password} />						
 							<InputBox className = "register" type = "password" onChange = {this.chPwdChange} valueInfo = {state.chpwdword} />						

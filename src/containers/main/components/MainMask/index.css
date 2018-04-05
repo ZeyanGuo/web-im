@@ -1,0 +1,11 @@
+.IM-mask{
+	width: 100%;
+	height: 100%;
+	background: white;
+	position: absolute;
+	z-index: 15;
+	top: 0;
+	left: 0;
+	filter: blur(5px) contrast(.8) brightness(.8);
+	opacity: .4;
+}

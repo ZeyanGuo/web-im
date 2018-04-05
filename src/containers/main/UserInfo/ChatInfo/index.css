@@ -1,0 +1,46 @@
+.IM-chat-info-btn{
+	width: 50%;
+	height: 35px;
+	display: inline-block;
+	text-align: center;
+	position: relative;
+}
+.IM-chat-info-icon{
+	position: relative;
+    /*top: -8px;*/
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	fill:none;
+	stroke: white;
+	stroke-width:40;
+}
+.IM-chat-info-selector{
+	height: 35px;
+	margin-top: 5px;
+	border-bottom: 1px solid #262930;
+}
+.IM-chat-info-btn-middle{
+	position: absolute;
+	font-size: 24px;
+	color: #262930;
+}
+.IM-chat-info-show{
+	height: calc(100% - 147px);
+    width: 100%;
+    overflow: scroll;
+}
+
+.IM-chat-info-number{
+    position: absolute;
+    top: 12px;
+    left: 75px;
+    z-index: 5;
+    display: block;
+    border-radius: 50%;
+    background: red;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+}

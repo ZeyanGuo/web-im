@@ -1,0 +1,9 @@
+.IM-portrait{
+	width: 1em;
+	height: 1em;
+	background: lightgray;
+	border-radius: .075em;
+	vertical-align: top;
+	margin:.3em; 
+	margin-left: .6em;
+}

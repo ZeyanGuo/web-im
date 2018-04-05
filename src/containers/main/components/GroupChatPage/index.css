@@ -1,0 +1,86 @@
+@keyframes page-scale-in{
+	from{transform: scale(0,0);}
+	to{transform: scale(1,1);}
+}
+@keyframes page-move-out{
+	from{opacity: 1; transform: translateY(0px); }
+	to{opacity: 0; transform: translateY(-100px);}
+}
+.IM-group-chat-page{
+	background: white;
+	width: 400px;
+	height: 550px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -275px;
+	margin-left: -200px;
+	z-index: 20;
+	box-shadow: 0 0 8px 1px #999;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.IM-group-chat-page-close{
+	background: #F08080;
+    color: white;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 25px;
+    border-radius: 0 5px 0 5px;
+    text-align: center;
+    margin-right: -1px;
+    margin-top: -1px;
+    font-size: 14px;
+}
+
+.IM-group-chat-title{
+	text-align: center;
+	width: 100%;
+    height: 60px;
+    background: #f9f9f9;
+}
+.IM-group-chat-title>span{
+	line-height: 60px;
+    color: #444;
+}
+.IM-group-chat-name{
+	height: 40px
+}
+.IM-group-chat-name>input{
+	width: 100%;
+    border: 5px solid #f9f9f9;
+    outline: none;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+    /* text-align: center; */
+    color: #444;
+    text-indent: 1em;
+}
+.IM-group-chat-users{
+	width: 100%;
+    height: 390px;
+    overflow: scroll;
+}
+.IM-group-chat-operation{
+	height: 60px;
+    text-align: center;
+    background: #f9f9f9;
+}
+.IM-group-chat-operation > button{
+	margin: 9px !important;
+    background: #00b939;
+    color: white !important;
+}
+.IM-group-chat-operation > button:hover{
+	cursor: pointer;
+	background: #00b939;
+}
+
+
+
+

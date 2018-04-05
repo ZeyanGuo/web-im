@@ -6,7 +6,13 @@
 		transform: rotateZ(360deg);
 	}
 }
-
+.IM-normal-button{
+	border:1px solid #d1d1d1;
+	background: white;
+}
+.IM-normal-button label{
+	white-space: nowrap;
+}
 .IM-normal-button:hover{
 	background: whitesmoke;
 	cursor: pointer;

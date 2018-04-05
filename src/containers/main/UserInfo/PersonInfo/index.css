@@ -1,0 +1,30 @@
+.IM-main-portrait-container{
+	display: inline-block;
+    vertical-align: middle;
+    padding: 18px 10px 18px 18px;
+}
+.IM-main-user-container{
+    padding: 8px 0 0 0;
+    font-size: 40px;
+    position: relative;
+}
+.IM-main-user-more{
+
+	width:30px;
+	height: 30px;
+	vertical-align: middle;
+	fill: white;
+}
+.IM-main-user-name{
+    font-size: 18px;
+    width: 150px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.IM-main-user-more{
+    cursor: pointer;
+}

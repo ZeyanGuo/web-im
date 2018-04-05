@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 import utils from '../../utils';
 import actions from '../../redux/actions';
 import {connect} from 'react-redux';
+import config from '../../config.js';
 
 
 
@@ -72,7 +73,7 @@ class Login extends React.Component{
 
 
 		let data = {
-			username:this.state.username,
+			account:this.state.username,
 			password:this.state.password
 		}
 
@@ -84,11 +85,25 @@ class Login extends React.Component{
 			return res.json();
 		})
 		.then((data)=>{
-			console.log(data);
 			if(data.status === 'ok'){//登录成功
+				let ws = new WebSocket(config.ws+'/methods/ws.json');
+				ws.onopen = () => {
+					ws.send(JSON.stringify({
+						id:data.result.user.id,
+						type:'login'
+					}));
+				}
 				this.props.loginSuccess({
 					id:data.result.user.id,
-					username:data.result.user.username
+					account:data.result.user.account,
+					baseInfo:data.result.user.baseInfo,
+					ws:ws
+				});
+				this.props.storeListInfo({
+					RequestFriendList:data.result.user.receivedRequestList,
+					SendedRequestList:data.result.user.sendedRequestList,
+					ChatList:data.result.user.chatList,
+					FriendList:data.result.user.friendList
 				});
 			}
 			else if(data.status === 'err'){
@@ -128,9 +143,8 @@ class Login extends React.Component{
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-		loginSuccess:(user) => dispatch(actions.login({
-			username:user.username
-		}))
+		loginSuccess:(user) => dispatch(actions.login(user)),
+		storeListInfo:(info)=>dispatch(actions.storeListInfo(info))
 	}
 }
 export default connect(null,mapDispatchToProps)(Login);

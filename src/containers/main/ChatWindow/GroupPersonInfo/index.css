@@ -1,0 +1,29 @@
+.IM-group-person-container{
+	position: absolute;
+    top: 51px;
+    width: 100%;
+    border-bottom: 1px solid #d6d6d6;
+    background: #eee;
+    z-index: 1;
+    text-align: left;
+}
+.IM-group-person{
+	display: inline-block;
+    margin: 15px 7.5px 0 7.5px;
+}
+.IM-group-person > img{
+	font-size: 60px;
+	margin: 0;
+}
+.IM-group-person > span{
+	width: 60px;
+    display: inline-block;
+    white-space: nowrap;
+    color: #444;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 22px;
+    font-size: 14px;
+    text-align: center;
+}
+
