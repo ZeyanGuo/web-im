@@ -236,6 +236,48 @@ const dispatchGroupChat = (info) => {
 	}
 }
 
+const hideChatListByChatId = (info) =>{
+	return {
+		type:types.HIDECHATLISTBYCHATID,
+		info
+	}
+}
+
+const showChatListByChatId = (info) => {
+	return {
+		type:types.SHOWCHATLISTBYCHATID,
+		info
+	}
+}
+
+const showChatListByFriendId = (info) => {
+	return {
+		type:types.SHOWCHATLISTBYFRIENDID,
+		info
+	}
+}
+
+const hideChatListByFriendId = (info) => {
+	return {
+		type:types.HIDECHATLISTBYFRIENDID,
+		info
+	}
+}
+
+const showMainPage = (info) => {
+	return {
+		type:types.SHOWMAINPAGE,
+		info
+	}
+}
+
+const setSelect = (info) =>{
+	return {
+		type:types.SETSELECT,
+		info
+	}
+}
+
 export default {
 	login:login,
 	logout:logout,
@@ -264,5 +306,11 @@ export default {
 	showGroupChatPage:showGroupChatPage,
 	hideGroupChatPage:hideGroupChatPage,
 	createGroupChat:createGroupChat,
-	dispatchGroupChat:dispatchGroupChat
+	dispatchGroupChat:dispatchGroupChat,
+	hideChatListByChatId:hideChatListByChatId,
+	showChatListByChatId:showChatListByChatId,
+	showChatListByFriendId:showChatListByFriendId,
+	hideChatListByFriendId:hideChatListByFriendId,
+	showMainPage:showMainPage,
+	setSelect:setSelect
 }

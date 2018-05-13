@@ -4,13 +4,77 @@ import Chat from '../Chat';
 import {connect} from 'react-redux';
 import utils from '../../../../../utils';
 import actions from '../../../../../redux/actions.js'
+import DeleteOperation from '../DeleteOperation';
 class ChatContainer extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			showIndex:null
+			showIndex:null,
+			deleteInfo:{
+				chatId:null,
+				index:null
+			},
+			deleteOperation:{
+				show:false,
+				x:null,
+				y:null
+			}
 		}
 		this.showChatClick = this.showChatClick.bind(this);
+		this.showDeleteOperation = this.showDeleteOperation.bind(this);
+		this.hideDeleteOperation = this.hideDeleteOperation.bind(this);
+		this.deleteChat = this.deleteChat.bind(this);
+	}
+	deleteChat(){
+		this.props.ws.send(JSON.stringify({
+			type:'deleteChat',
+			chatId:this.state.deleteInfo.chatId,
+			userId:this.props.id
+		}));
+		if(this.props.RightPageInfo.chatInfo.chatId === this.state.deleteInfo.chatId && this.props.RightPageInfo.type === 1){
+			this.props.showMainPage();
+		}
+	}
+	hideDeleteOperation(e){
+		this.setState({
+			deleteOperation:{
+				show:false,
+				x:null,
+				y:null
+			}
+		})
+	}
+	showDeleteOperation(e){
+		if(e.button === 2){//鼠标右键点击
+			let target = e.target,
+				x = e.clientX,
+				y = e.clientY;
+			this.setState({
+				deleteOperation:{
+					show:true,
+					x:x,
+					y:y
+				}
+			});
+
+			if(target.tagName == 'IMG' || target.tagName == "SPAN"){
+				target = target.parentElement;
+			}
+			else if(target.tagName == 'P'){
+				target = target.parentElement.parentElement;
+			}
+			if(target.getAttribute('class') == 'IM-chat-main'){
+				let chatId = target.getAttribute('data-chatid'),
+					index = target.getAttribute('data-index');
+				this.setState({
+					deleteInfo:{
+						chatId:chatId,
+						index:index
+					}
+				});
+			}
+			return false;
+		}
 	}
 	showChatClick(e){
 		let target = e.target;
@@ -104,13 +168,48 @@ class ChatContainer extends React.Component{
 	}
 	componentDidMount(){
 		this.refs.chatListContainer.addEventListener('click',this.showChatClick);
+		this.refs.chatListContainer.addEventListener('mousedown',this.showDeleteOperation);
+		document.oncontextmenu = ()=>{
+			return false;
+		}
+		document.body.addEventListener('click',this.hideDeleteOperation);
 	}
 	componentWillUnmount(){
 		this.refs.chatListContainer.removeEventListener('click',this.showChatClick);
+		this.refs.chatListContainer.removeEventListener('mousedown',this.showDeleteOperation);
+		document.body.removeEventListener('click',this.hideDeleteOperation);
 	}
 	render(){
-		let chatList = this.props.chatList.map((obj,index)=>{
-			let selected = false;
+		var count = 0;
+		if(this.props.select){
+			this.setState({
+				showIndex:0		
+			})
+			this.props.setSelect();
+		}
+		if(this.props.incSelect){
+			if(!!this.state.showIndex){
+				this.setState({
+					showIndex:this.state.showIndex+1
+				});
+			}
+			this.props.setSelect();
+		}
+		this.props.chatList.map((obj)=>{
+			if(obj.lastTimeStamp == ''){
+				obj.lastTimeStamp = count++;
+			}
+		})
+
+
+
+		let chatListTemp = this.props.chatList.sort((a,b)=>{
+			return b.lastTimeStamp - a.lastTimeStamp;
+		});
+
+		let chatList = chatListTemp.map((obj,index)=>{
+			let selected = false,
+				show = obj.show;
 			if(this.state.showIndex == index){
 				selected = true;
 			}	
@@ -124,11 +223,13 @@ class ChatContainer extends React.Component{
 				lastMessage:obj.lastMessage,
 				code:1
 			}
-			return <Chat fontSize="40px" info = {data} key = {index} index = {index} selected = {selected} />
+			return <Chat fontSize="40px" info = {data} key = {index} index = {index} selected = {selected} show = {show} />
 		})
+		let deleteOperation = <DeleteOperation x = {this.state.deleteOperation.x} y = {this.state.deleteOperation.y} click = {this.deleteChat}></DeleteOperation>;
 		return(
 			<div ref = "chatListContainer">
 				{this.props.chatList.length>0?chatList:<p className = "IM-chat-list">暂时没有聊天信息</p>}
+				{this.state.deleteOperation.show?deleteOperation:null}
 			</div>
 		)
 	}
@@ -136,13 +237,19 @@ class ChatContainer extends React.Component{
 const mapDispatchToProps = (dispatch) => {
 	return {
 		dispatchSingleChat:(info)=>{dispatch(actions.dispatchSingleChat(info))},
-		dispatchGroupChat:(info)=>{dispatch(actions.dispatchGroupChat(info))}
+		dispatchGroupChat:(info)=>{dispatch(actions.dispatchGroupChat(info))},
+		showMainPage:(info)=>{dispatch(actions.showMainPage(info))},
+		setSelect:(info)=>{dispatch(actions.setSelect(info))}
 	}
 }
 const mapStoreToProps = (store) => {
 	return {
+		RightPageInfo:store.mainReducer.RightPageInfo,
 		chatList:store.mainReducer.ChatList,
-		id: store.loginReducer.userInfo.id
+		id: store.loginReducer.userInfo.id,
+		ws: store.loginReducer.userInfo.ws,
+		select:store.mainReducer.select,
+		incSelect:store.mainReducer.incSelect
 	}
 }
 export default connect(mapStoreToProps,mapDispatchToProps)(ChatContainer);

@@ -1,0 +1,18 @@
+.IM-delete-operation{
+	position: absolute;
+	width: 130px;
+	height: 40px;
+	background: rgb(250,250,250);	
+	border-radius: 5px;
+	color: black;
+	line-height: 40px;
+	font-size: 16px;
+	text-indent: 10px;
+	border:1px solid #d6d6d6;
+	box-shadow: rgba(0,0,0,.1) 2px 3px 10px;
+	z-index: 9;
+	cursor: pointer;
+}
+.IM-delete-operation:hover{
+	background: rgb(235,235,235)
+}

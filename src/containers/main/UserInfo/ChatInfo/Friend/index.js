@@ -39,24 +39,7 @@ class Friends extends React.Component{
 	}
 	render(){
 	
-				// <Category cate = 'A' />
-				// <Chat fontSize = "31.25px" />
-				// <Category cate = 'B' />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Category cate = 'C' />
-				// <Chat fontSize = "31.25px" />
-				// <Category cate = 'F' />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Chat fontSize = "31.25px" />
-				// <Category cate = 'Y' />
-				// <Chat fontSize = "31.25px" />
+			
 			let index = 0;
 			let reqFriends = this.props.requstFriendList.map((obj)=>{
 				let selected = false;

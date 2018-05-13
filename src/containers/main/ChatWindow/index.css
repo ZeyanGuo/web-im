@@ -95,6 +95,7 @@
     width: 682px;
     margin: 0 auto;
     height: 28px;
+    position: relative;
 }
 .IM-chat-message-area{
 	width: 100%;

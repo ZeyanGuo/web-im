@@ -7,7 +7,8 @@ import MD5 from 'md5';
 import MessageRight from './MessageRight';
 import MessageLeft from './MessageLeft';
 import GroupPersonInfo from './GroupPersonInfo';
-
+import EmojiContainer from './EmojiContainer';
+import emojis from '../../../../static/emoji';
 //可以将code提升到redux来进行管理页面显示
 class ChatWindow extends React.Component{
 	constructor(props){
@@ -20,7 +21,8 @@ class ChatWindow extends React.Component{
 			ws:null,
 			startChatLoading:false,
 			moreMsg:true,
-			showGroupPersons:false
+			showGroupPersons:false,
+			emojiShow:false
 		}
 		this.sendAddFriend = this.sendAddFriend.bind(this);
 		this.agreeRequest = this.agreeRequest.bind(this);
@@ -33,6 +35,10 @@ class ChatWindow extends React.Component{
 		this.sendQuickMessage = this.sendQuickMessage.bind(this);
 		this.getHistoryRecord = this.getHistoryRecord.bind(this);
 		this.switchGroupPersons = this.switchGroupPersons.bind(this);
+		this.showOrHideEmojiContainer = this.showOrHideEmojiContainer.bind(this);
+		this.addEmojiToTextArea = this.addEmojiToTextArea.bind(this);
+		this.showImageInput = this.showImageInput.bind(this);
+		this.ImageInputChange = this.ImageInputChange.bind(this);
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.info&&nextProps.info.PersonInfo&&nextProps.info.PersonInfo.code){
@@ -62,12 +68,38 @@ class ChatWindow extends React.Component{
 		}
 	}
 
+	showOrHideEmojiContainer(){
+		if(this.state.emojiShow){
+			this.setState({
+				emojiShow:false
+			});	
+		}
+		else{
+			this.setState({
+				emojiShow:true
+			})
+		}
+	}
+	addEmojiToTextArea(e){
+		let target = e.target;
+		if(e.target.nodeName === 'I'){
+			let index = e.target.getAttribute('data-index'),
+				value = this.state.value;
+			this.setState({
+				value:value + emojis[index]
+			});
+		}
+	}
 	dealTheWsMessage(evt){
 		let data = JSON.parse(evt.data);
 		switch(data.type){//此处处理ws发送的message信息
 			case 'groupChat':
 			case 'singleChat':{
 				let message = this.state.message;
+				let chatId = data.chatId;
+				this.props.showChatListByChatId({
+					chatId:chatId
+				})
 				if(data.code === 0){//接收到消息回调
 					let Token = data.Token,
 					chatId = data.chatId,
@@ -85,10 +117,11 @@ class ChatWindow extends React.Component{
 						this.setState({//更新信息
 							message:newMessage
 						});
-	
+						
 						this.props.replaceLastMessage({
 							chatId:chatId,
-							message:messageReplace
+							message:/^data:image/.test(messageReplace)?'[图片]':messageReplace,
+							lastTimeStamp:new Date().getTime()
 						})
 					}
 					else{//消息发送失败
@@ -117,21 +150,32 @@ class ChatWindow extends React.Component{
 					else if(this.props.info.chatInfo.type == 'group'){
 						getTheMessage = data.chatId == this.props.info.chatInfo.chatId;
 					}
-					if(!getTheMessage||(this.props.info.type!=1)){//如果接收到的信息的发送者Id与现在所聊天的对象Id不一致,发送未读取
+					if(getTheMessage&&this.props.info.type == 1){
 						this.state.ws.send(JSON.stringify({
 							type:'checkMessage',
 							chatId:chatId,
 							msgId:msgId,
 							id:this.props.id,
-							code:0
+							code:1
 						}));
+					}
+					if(!getTheMessage||(this.props.info.type!=1)){//如果接收到的信息的发送者Id与现在所聊天的对象Id不一致,发送未读取
+						
 
 						//Todo
 						//在对应的ChatId上提示用户接受到新的信息
 						setTimeout(()=>{
+							let replaceMessage;
+							if(data.result.type == 'text'){
+								replaceMessage = data.result.msg;
+							}
+							else if(data.result.type == 'image'){
+								replaceMessage = '[图片]';
+							}
 							this.props.addMessageRemind({
 								chatId:chatId,
-								message:data.result.msg
+								message:replaceMessage,
+								lastTimeStamp:new Date().getTime()
 							});
 						},1000);
 					}
@@ -150,16 +194,26 @@ class ChatWindow extends React.Component{
 							message:data.result.msg,
 							success:'fulfilled',
 							Token:Token,
-							code:1
+							code:1,
+							msgType:data.result.type
 						}
 						message.push(newMessage);
 						this.setState({
 							message:message
 						});
 
+						let replaceMessage;
+						if(data.result.type == 'text'){
+							replaceMessage = data.result.msg;
+						}
+						else if(data.result.type == 'image'){
+							replaceMessage = '[图片]';
+						}
+
 						this.props.replaceLastMessage({
 							chatId:chatId,
-							message:data.result.msg
+							message:replaceMessage,
+							lastTimeStamp:new Date().getTime()
 						})
 						setTimeout(()=>{
 							this.moveToButtom();//将条滚动到最底部	
@@ -198,6 +252,7 @@ class ChatWindow extends React.Component{
 						headImg:headImg,
 						message:messages[i].msg,
 						success:'fulfilled',
+						msgType:messages[i].type,
 						code:code
 					});
 				}
@@ -267,6 +322,9 @@ class ChatWindow extends React.Component{
 		this.setState({
 			code:'04'
 		})
+		this.props.hideChatListByFriendId({
+			friendId:this.props.info.PersonInfo.id
+		})
 	}
 	sendAddFriend(){
 		this.props.ws.send(JSON.stringify({
@@ -288,7 +346,8 @@ class ChatWindow extends React.Component{
 		}));
 		this.setState({
 			code:'03'
-		})
+		});
+
 	}
 	startChat(){
 		this.state.ws.send(JSON.stringify({
@@ -315,6 +374,7 @@ class ChatWindow extends React.Component{
 					message:this.state.value,
 					success:'pending',
 					Token:Token,
+					msgType:'text',
 					code:0
 				}
 			message.push(newMessage);
@@ -324,6 +384,7 @@ class ChatWindow extends React.Component{
 					id:this.props.id,
 					friendId:this.props.info.PersonInfo.id,
 					message:this.state.value,
+					msgType:'text',
 					Token:Token
 				}));
 			}
@@ -333,6 +394,7 @@ class ChatWindow extends React.Component{
 					id:this.props.id,
 					chatId:this.props.info.chatInfo.chatId,
 					message:this.state.value,
+					msgType:'text',
 					Token:Token
 				}))
 			}
@@ -345,6 +407,55 @@ class ChatWindow extends React.Component{
 				this.moveToButtom();//将条滚动到最底部	
 			},100);
 		}
+	}
+	ImageInputChange(){
+		let reader = new FileReader();
+		reader.readAsDataURL(this.refs.inputImage.files[0]);
+		reader.onload = (e) => {
+			let data = e.target.result;
+			let Token = MD5(this.props.id + new Date().getTime()),
+				message = this.state.message,
+			    newMessage = {
+			    	headImg:this.props.baseInfo.headImg,
+					message:data,
+					success:'pending',
+					Token:Token,
+					msgType:'image',
+					code:0
+				}
+			message.push(newMessage);
+			if(this.props.info.chatInfo.type == 'single'){
+				this.props.ws.send(JSON.stringify({
+					type:'singleChat',
+					id:this.props.id,
+					friendId:this.props.info.PersonInfo.id,
+					message:data,
+					msgType:'image',
+					Token:Token
+				}));
+			}
+			else if(this.props.info.chatInfo.type == 'group'){
+				this.props.ws.send(JSON.stringify({
+					type:'groupChat',
+					id:this.props.id,
+					chatId:this.props.info.chatInfo.chatId,
+					message:data,
+					msgType:'image',
+					Token:Token
+				}))
+			}
+
+			this.setState({
+				message:message,
+				value:''
+			});
+			setTimeout(()=>{
+				this.moveToButtom();//将条滚动到最底部	
+			},100);
+		}
+	}
+	showImageInput(){
+		this.refs.inputImage.click();
 	}
 	render(){
 		let Logo = <img className = "IM-main-chat-logo" src = {require('../../../../static/logo.png')} />,
@@ -440,12 +551,14 @@ class ChatWindow extends React.Component{
 											error = {obj.success == "rejected"?true:false}
 											waiting = {obj.success == 'pending'?true:false}
 											headImg = {obj.headImg} 
+											msgType = {obj.msgType}
 											key = {index} />
 							}
 							else if(obj.code == 1){
 								return <MessageLeft
 											value = {obj.message}
 											headImg = {obj.headImg} 
+											msgType = {obj.msgType}
 											key = {index}/>
 							}
 						})
@@ -471,9 +584,14 @@ class ChatWindow extends React.Component{
 								</div>
 								<div className = "IM-chat-message">
 									<div className = "IM-additional-tools">	
-										<svg className="IM-additional-tools-style" aria-hidden="true">
+										<svg className="IM-additional-tools-style" aria-hidden="true" style={{fill:this.state.emojiShow?'green':''}} onClick = {this.showOrHideEmojiContainer}>
 										  <use xlinkHref="#icon-smile"></use>
 										</svg>
+										<EmojiContainer show = {this.state.emojiShow} click = {this.addEmojiToTextArea} />
+										<svg className="IM-additional-tools-style" aria-hidden="true" style = {{marginLeft:'5px'}} onClick = {this.showImageInput}>
+										  <use xlinkHref="#icon-file"></use>
+										</svg>
+										<input type = "file" style={{display:'none'}} accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onChange = {this.ImageInputChange} ref = "inputImage"></input>
 									</div>
 									<div className = "IM-chat-message-area">
 										<textarea onKeyDown = {this.sendQuickMessage} onChange = {this.onTextareaChange} value = {this.state.value} className = "IM-chat-message-send-area">
@@ -509,6 +627,7 @@ class ChatWindow extends React.Component{
 				<div className = "IM-main-chat-container">
 					{showComponent}
 				</div>
+
 			</div>
 		)
 	}
@@ -519,7 +638,11 @@ const mapDispatchToProps = (dispatch) => {
 		showChatPage: (info)=>{dispatch(actions.showChatPage(info))},
 		addMessageRemind: (info)=>{dispatch(actions.addMessageRemind(info))},
 		replaceLastMessage: (info)=>{dispatch(actions.replaceLastMessage(info))},
-		clearUnReadMsg:(info)=>{dispatch(actions.clearUnReadMsg(info))}
+		clearUnReadMsg:(info)=>{dispatch(actions.clearUnReadMsg(info))},
+		hideChatListByChatId:(info)=>{dispatch(actions.hideChatListByChatId(info))},
+		showChatListByChatId:(info)=>{dispatch(actions.showChatListByChatId(info))},
+		showChatListByFriendId:(info)=>{dispatch(actions.showChatListByFriendId(info))},
+		hideChatListByFriendId:(info)=>{dispatch(actions.hideChatListByFriendId(info))}
 	}
 }
 

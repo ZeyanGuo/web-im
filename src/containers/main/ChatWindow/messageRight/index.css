@@ -41,6 +41,10 @@
     height: 40px;
     vertical-align: top;
 }
+.IM-message-right-text>img{
+    max-width: 100%;
+    padding-top: 15px;
+}
 .IM-message-right-text::after{
 	content: ' ';
     position: absolute;

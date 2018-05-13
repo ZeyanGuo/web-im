@@ -1,6 +1,6 @@
 const config = {
-	// local:'http://10.77.162.67:9000',
-	// ws:'ws://10.77.162.67:9000',
+	// local:'http://10.69.102.73:9000',
+	// ws:'ws://10.69.102.73:9000',
 	local:'http://localhost:9000',
 	ws:'ws://localhost:9000',
 }

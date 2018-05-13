@@ -61,6 +61,9 @@ class Main extends React.Component{
 					this.props.deleteFriend({
 						id:data.friendId
 					});
+					this.props.hideChatListByFriendId({
+						friendId:data.friendId
+					})
 				} break;
 				case "startChat":{
 					let dataForPage = {
@@ -71,7 +74,7 @@ class Main extends React.Component{
 						showType:1,
 						chatImg:data.chatImg
 					} 
-					this.props.showChatPage(dataForPage);
+					this.props.showChatPage(dataForPage);					
 				} break;
 				case "createSingleChat":{
 					let dataForSingleChat = {
@@ -97,6 +100,11 @@ class Main extends React.Component{
 						users:data.result.users
 					});
 				} break;
+				case "deleteChat":{
+					this.props.hideChatListByChatId({
+						chatId:data.result.chatId
+					});
+				}
 				default : {
 					
 				}
@@ -157,7 +165,11 @@ const mapDispatchToProps = (dispatch) => {
 		deleteFriend:(info)=>{dispatch(actions.deleteFriend(info))},
 		showChatPage:(info)=>{dispatch(actions.showChatPage(info))},
 		createSingleChat:(info)=>{dispatch(actions.createSingleChat(info))},
-		createGroupChat:(info) => {dispatch(actions.createGroupChat(info))}
+		createGroupChat:(info) => {dispatch(actions.createGroupChat(info))},
+		hideChatListByChatId:(info) => {dispatch(actions.hideChatListByChatId(info))},
+		showChatListByChatId:(info) => {dispatch(actions.showChatListByChatId(info))},
+		showChatListByFriendId:(info) => {dispatch(actions.showChatListByFriendId(info))},
+		hideChatListByFriendId:(info) => {dispatch(actions.hideChatListByFriendId(info))}
 	}
 }
 

@@ -30,7 +30,10 @@ const initState = {
 	RequestFriendList:[],//收到的好友请求
 	SendedRequestList:[],//发送的好友请求
 	ChatList:[],//聊天信息
-	FriendList:[]//好友信息
+	FriendList:[],//好友信息
+	select:false,
+	incSelect:false
+
 }
 
 const {	
@@ -54,7 +57,13 @@ const {
 		SHOWGROUPCHATPAGE,
 		HIDEGROUPCHATPAGE,
 		CREATEGROUPCHAT,
-		DISPATCHGROUPCHAT
+		DISPATCHGROUPCHAT,
+		HIDECHATLISTBYCHATID,
+		SHOWCHATLISTBYCHATID,
+		SHOWCHATLISTBYFRIENDID,
+		HIDECHATLISTBYFRIENDID,
+		SHOWMAINPAGE,
+		SETSELECT
 	} = types;
 
 const mainReducer = (status = initState,action) => {
@@ -211,6 +220,7 @@ const mainReducer = (status = initState,action) => {
 				...status.RightPageInfo,
 				type:action.info.showType,
 				chatInfo:{
+					type:'single',
 					chatId:action.info.chatId,
 					chatName:action.info.chatName,
 					users:action.info.users
@@ -238,24 +248,29 @@ const mainReducer = (status = initState,action) => {
 				if(obj.chatId == action.info.chatId){
 					obj.lastMessage = action.info.message;
 					obj.unReadMsg += 1;
+					obj.lastTimeStamp = action.info.lastTimeStamp
 				}
 				return obj;
 			})
 			return {
 				...status,
-				ChatList:chatList
+				ChatList:chatList,
+				incSelect:true
 			}
 		} break;
 		case REPLACELASTMESSAGE:{
+
 			let chatList = status.ChatList.map((obj)=>{
 				if(obj.chatId == action.info.chatId){
 					obj.lastMessage = action.info.message;
+					obj.lastTimeStamp = action.info.lastTimeStamp;
 				}
 				return obj;
 			})
 			return {
 				...status,
-				ChatList:chatList
+				ChatList:chatList,
+				select:true
 			}
 		} break;
 		case DISPATCHSINGLECHAT:{
@@ -340,6 +355,91 @@ const mainReducer = (status = initState,action) => {
 				RightPageInfo:newRightPageInfo
 			}
 		} break;
+		case HIDECHATLISTBYCHATID:{
+			let chatId = action.info.chatId;
+			let ChatList = status.ChatList.map((obj)=>{
+				if(obj.chatId === chatId){
+					obj.show = false;
+					obj.unReadMsg = 0;
+				}
+				return obj;
+			});
+			return {
+				...status,
+				ChatList:ChatList
+			}
+		} break;
+		case SHOWCHATLISTBYCHATID:{
+			let chatId = action.info.chatId;
+			let ChatList = status.ChatList.map((obj)=>{
+				if(obj.chatId === chatId){
+					obj.show = true;
+				}
+				return obj;
+			});
+			return {
+				...status,
+				ChatList:ChatList
+			}
+		} break;
+		case SHOWCHATLISTBYFRIENDID:{
+			let friendId = action.info.friendId;
+			let ChatList = status.ChatList.map((obj)=>{
+				if(obj.friendId === friendId){
+					obj.show = true;
+				}
+				return obj;
+			});
+			return {
+				...status,
+				ChatList:ChatList
+			}
+		} break;
+		case HIDECHATLISTBYFRIENDID:{
+			let friendId = action.info.friendId;
+			let ChatList = status.ChatList.map((obj)=>{
+				if(obj.friendId === friendId){
+					obj.show = false;
+					obj.unReadMsg = 0;
+				}
+				return obj;
+			});
+			return {
+				...status,
+				ChatList:ChatList
+			}
+		} break;
+		case SHOWMAINPAGE:{
+			let RightPageInfo = {
+				type:0,
+				PersonInfo:{
+					id:'',
+					headImg:'',
+					name:'',
+					email:'',
+					phone:'',
+					gender:''
+				},
+				chatInfo:{
+					type:'',
+					chatId:'',
+					chatName:'',
+					users:{},
+					userInfo:[],
+				}
+			}
+			return {
+				...status,
+				RightPageInfo:RightPageInfo
+			}
+		} break;
+		case SETSELECT:{
+			return {
+				...status,
+				select:false,
+				incSelect:false
+			}
+		}
 		default:{
 			return status;
 		}

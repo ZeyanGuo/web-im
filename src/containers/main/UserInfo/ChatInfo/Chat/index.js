@@ -48,7 +48,7 @@ class Chat extends React.Component{
 		let chatSmallShowCount = <span className = "IM-chat-info-inner-number">{props.info.unReadMsg>99?'...':props.info.unReadMsg}</span>,
 			lastMessage = <p style = {{color:'gray'}}>{props.info.lastMessage}</p>;
 		return (
-			<div style = {{fontSize:props.fontSize,background:this.props.selected?'#595a64':''}} className = "IM-chat-main" data-index = {this.props.index} data-chatid = {props.info?props.info.code === 1?props.info.chatId:'':''}>
+			<div style = {{fontSize:props.fontSize,background:this.props.selected?'#595a64':'',display:this.props.show===false?"none":"block"}} className = "IM-chat-main" data-index = {this.props.index} data-chatid = {props.info?props.info.code === 1?props.info.chatId:'':''}>
 				{props.info?props.info.code===1&&props.info.unReadMsg>0?chatSmallShowCount:'':''}
 				<Portrait src = {props.info?props.info.headImg:''} headPopup = {props.info?props.info.headPopup:false} id = {props.info?props.info.id:''} />
 				<div className = "IM-chat-detail">

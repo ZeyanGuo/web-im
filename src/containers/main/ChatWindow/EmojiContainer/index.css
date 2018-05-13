@@ -1,0 +1,17 @@
+.IM-Emoji-Container{
+	position: absolute;
+	background: white;
+	width: 300px;
+	z-index: 10;
+	top: -158px;
+	left: 0;
+	border: 1px solid #dedede;
+	padding: 5px;
+	border-radius:5px; 
+}
+.IM-Emoji-Container>i{
+	font-style: normal;
+	font-size: 20px;
+	margin: 2px;
+	cursor: pointer;
+}
